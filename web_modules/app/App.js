@@ -16,24 +16,20 @@ const kinds = {
 	electro: {name: "electro"}
 }
 
-	/*
-				artists &&
-				artists.map((artist, index) => {
-					return this.getItem(artist,index)
-				})
-			}*/
-
 export default class App extends Component {
+
+	getItem(artist, index){
+		return (<Item key={index} name={artist.name} />)
+	}
+
 	render() {
 		return (
 			<div>
 			<List items={artists} />
 			{
 				kinds &&
-				Object.keys(kinds).map ((key, index) => {
-					return(
-						<ArtistItem key={index} name={kinds key].name} />
-					)
+				kindArray.map((key, index)=> {
+					console.log(kindArray[key])
 				})
 			}
 			</div>
