@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import List from "List";
+import consts from "./Consts";
 
 /*
 const artists = [
@@ -21,28 +22,32 @@ const kindsArray = Object.keys(kinds).map((k) => { return kinds[k] });
 export default class App extends Component {
 
   state = {
-    artists:[]
+    artists:null
   };
 
-  componentDidMount(){
-    console.log("")
-
-    fetch("https://api.spotify.com/v1/search?query=Bob*&offset=0&limit=10&type=artist").then((responsive)=> {
-      responsive.json().then((data) =>{
-        console.log(data)
+  fetchArtist(name){
+    fetch(consts.api.endpoints.getSearch(name, "artist")).then((response)=> {
+      response.json().then((data)=> {
         if(!data.error){
-        console.log(data)
-        this.setState({artists:data.artists.items})
+          this.setState({artists:data.artists.items})
         }
       })
-    });
+  });
+}
+
+onChangeHandler (value){
+  console.log("value", value)
+}
+
+  componentDidMount(){
+    this.fetchArtist("Bob");
 
   }
 
   render() {
     return (
       <div>
-        <List title="Artist" items={this.state.artists} />
+        <List title="Artist" onChange={this.onChangeHandler} items={this.state.artists} />
         <List title="Kind" items={kindsArray} />
       </div>
     )
